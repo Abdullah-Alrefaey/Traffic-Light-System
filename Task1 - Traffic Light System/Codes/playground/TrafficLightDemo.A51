@@ -22,6 +22,10 @@ LOOP3:	MOVC A, @A+DPTR			; location in the look-up Table
 		MOV A, R0
 		ACALL DELAY_1s
 		CJNE R0, #0H, LOOP3		; check the number
+		// Write 0 to right segment
+		MOVC A, @A+DPTR
+		MOV RIGHT_SEGMENT, A
+		ACALL DELAY_1s
 
 		// when 10 seconds passed
 		DEC R1
