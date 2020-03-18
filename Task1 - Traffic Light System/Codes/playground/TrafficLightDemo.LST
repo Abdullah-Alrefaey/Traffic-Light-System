@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  TRAFFICLIGHTDEMO                                                     03/17/2020 16:49:19 PAGE     1
+A51 MACRO ASSEMBLER  TRAFFICLIGHTDEMO                                                     03/18/2020 12:23:28 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.02
@@ -7,37 +7,79 @@ ASSEMBLER INVOKED BY: C:\Keil\C51\BIN\A51.EXE TrafficLightDemo.A51 SET(SMALL) DE
 
 LOC  OBJ            LINE     SOURCE
 
-0000                   1             ORG 0000h                               ;tells the compiler all subsequent code sta
-                             rting at address 0000h
-  0095                 2                     GREEN BIT P1.5
+  0100                 1             TABLE_RIGHT EQU 100H                    ; start address of look-up Table
+  0200                 2                     TABLE_LEFT EQU 200H
   0096                 3                     RED BIT P1.6
-                       4     
-0000 1106              5     MAIN:   CALL ON
-0002 110F              6                     CALL OFF
-0004 80FA              7                     JMP MAIN
-                       8     
-0006 D295              9     ON:             SETB GREEN
-0008 C296             10                     CLR RED
-000A 7828             11                     MOV R0, #40
-000C 1118             12                     CALL DELAY
-000E 22               13                     RET
+  0095                 4                     GREEN BIT P1.5
+                       5                     ;LEFT_SEGMENT EQU P1
+                       6                     ;RIGHT_SEGMENT EQU P3
+0000                   7                     ORG 0                                   ;tells the compiler all subsequent 
+                             code starting at address 0
+                       8                     
+                       9     
+0000 900100           10     MAIN:   MOV DPTR, #TABLE_RIGHT
+0003 7400             11                     MOV A, #0H
+0005 F8               12                     MOV R0, A
+                      13                     ;CALL OFF
                       14                     
-000F C295             15     OFF:    CLR GREEN
-0011 D296             16                     SETB RED
-0013 7814             17                     MOV R0, #20
-0015 1118             18                     CALL DELAY
-0017 22               19                     RET
-                      20     
-0018 7900             21     DELAY:  MOV R1, #0
-001A 7A00             22                     MOV R2, #0
-                      23     
-001C DAFE             24     LOOP:   DJNZ R2, LOOP
-001E D9FC             25                     DJNZ R1, LOOP
-0020 D8FA             26                     DJNZ R0, LOOP
-0022 22               27                     RET
-                      28     
-                      29                     END
-A51 MACRO ASSEMBLER  TRAFFICLIGHTDEMO                                                     03/17/2020 16:49:19 PAGE     2
+0006 310A             15     LOOP3:  CALL ON
+0008 93               16                     MOVC A, @A+DPTR                 ; location in the look-up Table
+0009 F5A0             17                     MOV P2, A                               ; write to the 7-segment
+000B 08               18                     INC R0
+000C E8               19                     MOV A, R0
+000D 3114             20                     ACALL DELAY_1s
+000F B80AF4           21                     CJNE R0, #0AH, LOOP3            ; check the number
+                      22     
+                      23                     ;counter is 0 now
+0012 310F             24                     CALL OFF                
+                      25     
+0014 80EA             26                     JMP MAIN
+                      27     
+                      28                     ;look up table for right seven segment common cathode
+0100                  29             ORG TABLE_RIGHT
+0100 3F065B4F         30             DB 3FH,06H,5BH,4FH,66H,6DH,7DH,07H,7FH,6FH
+0104 666D7D07                
+0108 7F6F                    
+                      31                     
+                      32                             
+010A D295             33     ON:             SETB GREEN
+010C C296             34                     CLR RED
+                      35                     ;MOV R0, #40
+                      36                     ;CALL DELAY
+                      37                     ;CALL DELAY_1s
+010E 22               38                     RET
+                      39                     
+010F C295             40     OFF:    CLR GREEN
+0111 D296             41                     SETB RED
+                      42                     ;MOV R0, #20
+                      43                     ;CALL DELAY
+                      44                     ;CALL DELAY_1s
+0113 22               45                     RET
+                      46     
+                      47     
+0114 7B07             48     DELAY_1s:       MOV R3, #7                      ; delay 1s ---> (256 * 256 * 24 * 8 + 24) /
+                              12000000
+0116 7C00             49                             MOV R4, #0
+0118 7D00             50                             MOV R5, #0
+011A DDFE             51     LOOP2:          DJNZ R5, LOOP2
+011C DCFC             52                             DJNZ R4, LOOP2
+011E DBFA             53                             DJNZ R3, LOOP2
+0120 22               54                             RET
+A51 MACRO ASSEMBLER  TRAFFICLIGHTDEMO                                                     03/18/2020 12:23:28 PAGE     2
+
+                      55     
+                      56     
+0121 7900             57     DELAY:  MOV R1, #0
+0123 7A00             58                     MOV R2, #0
+                      59     
+0125 DAFE             60     LOOP:   DJNZ R2, LOOP
+0127 D9FC             61                     DJNZ R1, LOOP
+0129 D8FA             62                     DJNZ R0, LOOP
+012B 22               63                     RET
+                      64     
+                      65     
+                      66                     END
+A51 MACRO ASSEMBLER  TRAFFICLIGHTDEMO                                                     03/18/2020 12:23:28 PAGE     3
 
 SYMBOL TABLE LISTING
 ------ ----- -------
@@ -45,14 +87,20 @@ SYMBOL TABLE LISTING
 
 N A M E             T Y P E  V A L U E   ATTRIBUTES
 
-DELAY. . . . . . .  C ADDR   0018H   A   
+DELAY. . . . . . .  C ADDR   0121H   A   
+DELAY_1S . . . . .  C ADDR   0114H   A   
 GREEN. . . . . . .  B ADDR   0090H.5 A   
-LOOP . . . . . . .  C ADDR   001CH   A   
+LOOP . . . . . . .  C ADDR   0125H   A   
+LOOP2. . . . . . .  C ADDR   011AH   A   
+LOOP3. . . . . . .  C ADDR   0006H   A   
 MAIN . . . . . . .  C ADDR   0000H   A   
-OFF. . . . . . . .  C ADDR   000FH   A   
-ON . . . . . . . .  C ADDR   0006H   A   
+OFF. . . . . . . .  C ADDR   010FH   A   
+ON . . . . . . . .  C ADDR   010AH   A   
 P1 . . . . . . . .  D ADDR   0090H   A   
+P2 . . . . . . . .  D ADDR   00A0H   A   
 RED. . . . . . . .  B ADDR   0090H.6 A   
+TABLE_LEFT . . . .  N NUMB   0200H   A   
+TABLE_RIGHT. . . .  N NUMB   0100H   A   
 
 
 REGISTER BANK(S) USED: 0 
