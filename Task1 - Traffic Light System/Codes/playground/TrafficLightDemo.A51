@@ -12,6 +12,8 @@
 		MOVC A, @A+DPTR
 		MOV LEFT_SEGMENT, #5BH
 		CALL ON
+		MOV A, #3				;MSB Tracker, Max Left Segment + 1
+		MOV R2, A
 
 		
 MAIN:	MOV A, #9
@@ -23,34 +25,33 @@ LOOP3:	MOVC A, @A+DPTR			; location in the look-up Table
 		MOV A, R0
 		ACALL DELAY_1s
 		CJNE R0, #0H, LOOP3		; check the number
+		DEC R2
 
-		// Write 0 to right segment
 		MOVC A, @A+DPTR
 		MOV RIGHT_SEGMENT, A
 		ACALL DELAY_1s
+		CJNE R2, #0, LCONT
+		CALL REST
+		JMP MAIN
 
-		// when 10 seconds passed
-		DEC R1
+LCONT:	DEC R1
 		MOV A, R1
 		MOVC A, @A+DPTR
 		MOV LEFT_SEGMENT, A
 
-		// if counter is 00
-		// CJNE R1, #0H, RESET
-		// CALL RESET
 		
 		JMP MAIN
 
-		;look up table for right seven segment common cathode
-        ORG TABLE_RIGHT
-        DB 3FH,06H,5BH,4FH,66H,6DH,7DH,07H,7FH,6FH
 
-RESET:	MOV A, #2				;max left segment
+
+REST:	MOV A, #2				;max left segment
 		MOV R1, A
 		MOVC A, @A+DPTR
-		MOV LEFT_SEGMENT, #5BH
-		CALL OFF
-		RET	
+		MOV LEFT_SEGMENT,  A
+		CALL TOG
+		MOV A, #3				;Reset Tracker
+		MOV R2, A
+		RET
 
 ON:		SETB GREEN
 		CLR RED
@@ -59,6 +60,13 @@ ON:		SETB GREEN
 OFF:	CLR GREEN
 		SETB RED
 		RET
+TOG:	CPL GREEN
+		CPL RED
+		RET				
+
+		 		;look up table for right seven segment common cathode
+        ORG TABLE_RIGHT
+        DB 3FH,06H,5BH,4FH,66H,6DH,7DH,07H,7FH,6FH
 
 
 DELAY_1s:  	MOV R4, #7 			; delay 1s ---> (256 * 256 * 24 * 8 + 24) / 12000000
@@ -68,15 +76,6 @@ LOOP2:		DJNZ R6, LOOP2
 			DJNZ R5, LOOP2
 			DJNZ R4, LOOP2
 			RET
-
-
-//DELAY:	MOV R1, #0
-//		MOV R2, #0
-//
-//LOOP:	DJNZ R2, LOOP
-//		DJNZ R1, LOOP
-//		DJNZ R0, LOOP
-//		RET
 
 
 		END

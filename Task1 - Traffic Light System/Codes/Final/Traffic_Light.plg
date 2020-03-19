@@ -3,13 +3,7 @@
 <pre>
 <h1>µVision Build Log</h1>
 <h2>Project:</h2>
-D:\Study\Courses\8051 Microcontroller\Electronics-Tasks\Task1 - Traffic Light System\Codes\Final\Traffic_Light.uvproj
+F:\College\3rd Year\2nd Term\Bioelectronics\Electronics-Tasks\Task1 - Traffic Light System\Codes\Final\Traffic_Light.uvproj
 Project File Date:  03/17/2020
 
 <h2>Output:</h2>
-Build target 'Target 1'
-assembling Traffic_Light.A51...
-Traffic_Light.A51(0): warning A41: MISSING 'END' STATEMENT
-linking...
-Program Size: data=8.0 xdata=0 code=0
-"Traffic_Light" - 0 Error(s), 1 Warning(s).
