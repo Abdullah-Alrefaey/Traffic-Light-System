@@ -2,10 +2,14 @@
 		TABLE_LEFT EQU 200H
 		RED BIT P1.6
 		GREEN BIT P1.5
+		YELLOW BIT P1.7
+		BTN_FREQ EQU P0.0
 		LEFT_SEGMENT EQU P3
 		RIGHT_SEGMENT EQU P2
 		
 		ORG 0					;tells the compiler all subsequent code starting at address 0
+		CLR YELLOW
+		CLR BTN_FREQ
 		MOV DPTR, #TABLE_RIGHT
 		MOV A, #2				;max left segment
 		MOV R1, A
@@ -18,6 +22,7 @@
 		
 MAIN:	MOV A, #9
 		MOV R0, A
+		
 
 LOOP3:	MOVC A, @A+DPTR			; location in the look-up Table
 		MOV RIGHT_SEGMENT, A	; write to the 7-segment
@@ -62,6 +67,9 @@ OFF:	CLR GREEN
 		RET
 TOG:	CPL GREEN
 		CPL RED
+		RET
+		
+ON_YEL:	SETB YELLOW
 		RET				
 
 		 		;look up table for right seven segment common cathode
@@ -69,12 +77,17 @@ TOG:	CPL GREEN
         DB 3FH,06H,5BH,4FH,66H,6DH,7DH,07H,7FH,6FH
 
 
-DELAY_1s:  	MOV R4, #7 			; delay 1s ---> (256 * 256 * 24 * 8 + 24) / 12000000
+DELAY_1s:  	MOV R4, #8
+			JB BTN_FREQ, INC_FREQ
 			MOV R5, #0
 			MOV R6, #0
+			
 LOOP2:		DJNZ R6, LOOP2
 			DJNZ R5, LOOP2
 			DJNZ R4, LOOP2
+			RET
+
+INC_FREQ:	MOV R4, #6			   ; delay 1s ---> (256 * 256 * 24 * 8 + 24) / 12000000
 			RET
 
 
