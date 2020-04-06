@@ -1,0 +1,146 @@
+A51 MACRO ASSEMBLER  TRAFFIC_LIGHT                                                        03/26/2020 14:13:10 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.02
+OBJECT MODULE PLACED IN Traffic_Light.OBJ
+ASSEMBLER INVOKED BY: C:\Keil\C51\BIN\A51.EXE Traffic_Light.A51 SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+  0100                 1             TABLE_RIGHT EQU 100H                    ; start address of look-up Table
+  0096                 2                     RED BIT P1.6
+  0095                 3                     GREEN BIT P1.5
+  0080                 4                     BTN_FREQ EQU P0.0
+  0081                 5                     BTN_SEC60 EQU P0.1
+  00B0                 6                     LEFT_SEGMENT EQU P3
+  00A0                 7                     RIGHT_SEGMENT EQU P2
+                       8                     
+0000                   9                     ORG 0                                   ;tells the compiler all subsequent 
+                             code starting at address 0
+0000 C280             10                     CLR BTN_FREQ
+0002 114A             11                     CALL ON
+0004 900100           12                     MOV DPTR, #TABLE_RIGHT
+                      13     
+                      14                     
+0007 20810B           15                     JB BTN_SEC60, SET_MAX60
+                      16     
+000A 7402             17     SET_MAX30:      MOV A, #2                               ;max left segment
+000C F9               18                             MOV R1, A
+000D 93               19                             MOVC A, @A+DPTR
+000E F5B0             20                             MOV LEFT_SEGMENT, A
+0010 7403             21                             MOV A, #3                               ;MSB Tracker, Max Left Segm
+                             ent + 1
+0012 FA               22                             MOV R2, A
+0013 800B             23                             JMP MAIN
+                      24     
+0015 7405             25     SET_MAX60:      MOV A, #5                               ;max left segment
+0017 F9               26                             MOV R1, A
+0018 93               27                             MOVC A, @A+DPTR
+0019 F5B0             28                             MOV LEFT_SEGMENT, A     
+001B 7406             29                             MOV A, #6                               ;MSB Tracker, Max Left Segm
+                             ent + 1
+001D FA               30                             MOV R2, A
+001E 8000             31                             JMP MAIN
+                      32     
+0020 7409             33     MAIN:   MOV A, #9
+0022 F8               34                     MOV R0, A
+                      35                     
+0023 93               36     LOOP3:  MOVC A, @A+DPTR                 ; location in the look-up Table
+0024 F5A0             37                     MOV RIGHT_SEGMENT, A    ; write to the 7-segment
+0026 18               38                     DEC R0
+0027 E8               39                     MOV A, R0
+0028 310A             40                     ACALL DELAY_1s
+002A B800F6           41                     CJNE R0, #0H, LOOP3             ; check the number
+002D 1A               42                     DEC R2
+                      43     
+002E 93               44                     MOVC A, @A+DPTR
+002F F5A0             45                     MOV RIGHT_SEGMENT, A
+0031 310A             46                     ACALL DELAY_1s
+0033 BA0004           47                     CJNE R2, #0, LCONT
+0036 1141             48                     CALL REST
+0038 80E6             49                     JMP MAIN
+                      50     
+003A 19               51     LCONT:  DEC R1
+003B E9               52                     MOV A, R1
+003C 93               53                     MOVC A, @A+DPTR
+003D F5B0             54                     MOV LEFT_SEGMENT, A
+                      55     
+A51 MACRO ASSEMBLER  TRAFFIC_LIGHT                                                        03/26/2020 14:13:10 PAGE     2
+
+003F 80DF             56                     JMP MAIN
+                      57     
+0041 1154             58     REST:   CALL TOG
+0043 3081C4           59                     JNB BTN_SEC60, SET_MAX30
+0046 2081CC           60                     JB BTN_SEC60, SET_MAX60
+0049 22               61                     RET
+                      62     
+004A D295             63     ON:             SETB GREEN
+004C C296             64                     CLR RED
+004E 22               65                     RET
+                      66                     
+004F C295             67     OFF:    CLR GREEN
+0051 D296             68                     SETB RED
+0053 22               69                     RET
+                      70     
+0054 B295             71     TOG:    CPL GREEN
+0056 B296             72                     CPL RED
+0058 22               73                     RET
+                      74                             
+                      75                     ;look up table for right seven segment common cathode
+0100                  76             ORG TABLE_RIGHT
+0100 3F065B4F         77             DB 3FH,06H,5BH,4FH,66H,6DH,7DH,07H,7FH,6FH
+0104 666D7D07                
+0108 7F6F                    
+                      78     
+010A 7C08             79     DELAY_1s:       MOV R4, #8
+010C 20800B           80                             JB BTN_FREQ, INC_FREQ
+010F 7D00             81                             MOV R5, #0
+0111 7E00             82                             MOV R6, #0
+                      83                             
+0113 DEFE             84     LOOP2:          DJNZ R6, LOOP2
+0115 DDFC             85                             DJNZ R5, LOOP2
+0117 DCFA             86                             DJNZ R4, LOOP2
+0119 22               87                             RET
+                      88     
+011A 7C06             89     INC_FREQ:       MOV R4, #6                         ; delay 1s ---> (256 * 256 * 24 * 8 + 24
+                             ) / 12000000
+011C 22               90                             RET
+                      91     
+                      92                             END
+A51 MACRO ASSEMBLER  TRAFFIC_LIGHT                                                        03/26/2020 14:13:10 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+BTN_FREQ . . . . .  B ADDR   0080H.0 A   
+BTN_SEC60. . . . .  B ADDR   0080H.1 A   
+DELAY_1S . . . . .  C ADDR   010AH   A   
+GREEN. . . . . . .  B ADDR   0090H.5 A   
+INC_FREQ . . . . .  C ADDR   011AH   A   
+LCONT. . . . . . .  C ADDR   003AH   A   
+LEFT_SEGMENT . . .  D ADDR   00B0H   A   
+LOOP2. . . . . . .  C ADDR   0113H   A   
+LOOP3. . . . . . .  C ADDR   0023H   A   
+MAIN . . . . . . .  C ADDR   0020H   A   
+OFF. . . . . . . .  C ADDR   004FH   A   
+ON . . . . . . . .  C ADDR   004AH   A   
+P0 . . . . . . . .  D ADDR   0080H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+P2 . . . . . . . .  D ADDR   00A0H   A   
+P3 . . . . . . . .  D ADDR   00B0H   A   
+RED. . . . . . . .  B ADDR   0090H.6 A   
+REST . . . . . . .  C ADDR   0041H   A   
+RIGHT_SEGMENT. . .  D ADDR   00A0H   A   
+SET_MAX30. . . . .  C ADDR   000AH   A   
+SET_MAX60. . . . .  C ADDR   0015H   A   
+TABLE_RIGHT. . . .  N NUMB   0100H   A   
+TOG. . . . . . . .  C ADDR   0054H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

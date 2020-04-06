@@ -1,0 +1,129 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        03/26/2020  14:13:10  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE Traffic_Light.obj TO Traffic_Light
+
+
+INPUT MODULES INCLUDED:
+  Traffic_Light.obj (TRAFFIC_LIGHT)
+
+
+LINK MAP OF MODULE:  Traffic_Light (TRAFFIC_LIGHT)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     011DH     ABSOLUTE     
+
+
+
+SYMBOL TABLE OF MODULE:  Traffic_Light (TRAFFIC_LIGHT)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        TRAFFIC_LIGHT
+  B:0080H.0       SYMBOL        BTN_FREQ
+  B:0080H.1       SYMBOL        BTN_SEC60
+  C:010AH         SYMBOL        DELAY_1S
+  B:0090H.5       SYMBOL        GREEN
+  C:011AH         SYMBOL        INC_FREQ
+  C:003AH         SYMBOL        LCONT
+  D:00B0H         SYMBOL        LEFT_SEGMENT
+  C:0113H         SYMBOL        LOOP2
+  C:0023H         SYMBOL        LOOP3
+  C:0020H         SYMBOL        MAIN
+  C:004FH         SYMBOL        OFF
+  C:004AH         SYMBOL        ON
+  D:0080H         SYMBOL        P0
+  D:0090H         SYMBOL        P1
+  D:00A0H         SYMBOL        P2
+  D:00B0H         SYMBOL        P3
+  B:0090H.6       SYMBOL        RED
+  C:0041H         SYMBOL        REST
+  D:00A0H         SYMBOL        RIGHT_SEGMENT
+  C:000AH         SYMBOL        SET_MAX30
+  C:0015H         SYMBOL        SET_MAX60
+  N:0100H         SYMBOL        TABLE_RIGHT
+  C:0054H         SYMBOL        TOG
+  C:0000H         LINE#         10
+  C:0002H         LINE#         11
+  C:0004H         LINE#         12
+  C:0007H         LINE#         15
+  C:000AH         LINE#         17
+  C:000CH         LINE#         18
+  C:000DH         LINE#         19
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/26/2020  14:13:10  PAGE 2
+
+
+  C:000EH         LINE#         20
+  C:0010H         LINE#         21
+  C:0012H         LINE#         22
+  C:0013H         LINE#         23
+  C:0015H         LINE#         25
+  C:0017H         LINE#         26
+  C:0018H         LINE#         27
+  C:0019H         LINE#         28
+  C:001BH         LINE#         29
+  C:001DH         LINE#         30
+  C:001EH         LINE#         31
+  C:0020H         LINE#         33
+  C:0022H         LINE#         34
+  C:0023H         LINE#         36
+  C:0024H         LINE#         37
+  C:0026H         LINE#         38
+  C:0027H         LINE#         39
+  C:0028H         LINE#         40
+  C:002AH         LINE#         41
+  C:002DH         LINE#         42
+  C:002EH         LINE#         44
+  C:002FH         LINE#         45
+  C:0031H         LINE#         46
+  C:0033H         LINE#         47
+  C:0036H         LINE#         48
+  C:0038H         LINE#         49
+  C:003AH         LINE#         51
+  C:003BH         LINE#         52
+  C:003CH         LINE#         53
+  C:003DH         LINE#         54
+  C:003FH         LINE#         56
+  C:0041H         LINE#         58
+  C:0043H         LINE#         59
+  C:0046H         LINE#         60
+  C:0049H         LINE#         61
+  C:004AH         LINE#         63
+  C:004CH         LINE#         64
+  C:004EH         LINE#         65
+  C:004FH         LINE#         67
+  C:0051H         LINE#         68
+  C:0053H         LINE#         69
+  C:0054H         LINE#         71
+  C:0056H         LINE#         72
+  C:0058H         LINE#         73
+  C:010AH         LINE#         79
+  C:010CH         LINE#         80
+  C:010FH         LINE#         81
+  C:0111H         LINE#         82
+  C:0113H         LINE#         84
+  C:0115H         LINE#         85
+  C:0117H         LINE#         86
+  C:0119H         LINE#         87
+  C:011AH         LINE#         89
+  C:011CH         LINE#         90
+  -------         ENDMOD        TRAFFIC_LIGHT
+
+******************************************************************************
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/26/2020  14:13:10  PAGE 3
+
+
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0076H BYTE ( 5%) *
+******************************************************************************
+
+Program Size: data=8.0 xdata=0 code=285
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

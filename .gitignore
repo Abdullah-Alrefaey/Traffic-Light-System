@@ -1,12 +1,41 @@
+#Proteus Junk
+*.workspace
 
-Task1 - Traffic Light System/Codes/Final/TrafficLightDemo
+# Prerequisites
+*.d
 
-Task1 - Traffic Light System/Codes/Final/TrafficLightDemo.LST
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
 
-Task1 - Traffic Light System/Codes/Final/TrafficLightDemo.M51
+# Precompiled Headers
+*.gch
+*.pch
 
-Task1 - Traffic Light System/Codes/Final/TrafficLightDemo.OBJ
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
 
-Task1 - Traffic Light System/Codes/Final/TrafficLightDemo_uvopt.bak
+# Fortran module files
+*.mod
+*.smod
 
-Task1 - Traffic Light System/Simulation/Traffic Light.pdsprj.BODY-ALREFAEY.Abdullah-Mohammed.workspace
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+#Processing Folders
+/cmake-build-debug/
+/.idea/
+/.vscode/
+
