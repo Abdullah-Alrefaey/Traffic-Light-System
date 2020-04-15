@@ -23,7 +23,7 @@ void DIO_vsetPINDir(unsigned char portName, unsigned char pinNumber, unsigned ch
 			else
 			{
 				// Set the direction of the given pin in port 0 as input
-				SET_BIT(P0MDOUT, pinNumber);
+				CLR_BIT(P0MDOUT, pinNumber);
 				SET_BIT(P0, pinNumber);
 			}
 			break;
@@ -37,7 +37,7 @@ void DIO_vsetPINDir(unsigned char portName, unsigned char pinNumber, unsigned ch
 			else
 			{
 				// Set the direction of the given pin in port 1 as input
-				SET_BIT(P1MDOUT, pinNumber);
+				CLR_BIT(P1MDOUT, pinNumber);
 				SET_BIT(P1, pinNumber);
 			}
 			break;
@@ -51,7 +51,7 @@ void DIO_vsetPINDir(unsigned char portName, unsigned char pinNumber, unsigned ch
 			else
 			{
 				// Set the direction of the given pin in port 2 as input
-				SET_BIT(P2MDOUT, pinNumber);
+				CLR_BIT(P2MDOUT, pinNumber);
 				SET_BIT(P2, pinNumber);
 			}
 			break;
@@ -65,22 +65,8 @@ void DIO_vsetPINDir(unsigned char portName, unsigned char pinNumber, unsigned ch
 			else
 			{
 				// Set the direction of the given pin in port 3 as input
-				SET_BIT(P3MDOUT, pinNumber);
+				CLR_BIT(P3MDOUT, pinNumber);
 				SET_BIT(P3, pinNumber);
-			}
-			break;
-			
-		case '4':
-			if(direction == 1)
-			{
-				// Set the direction of the given pin in port 4 as output
-				SET_BIT(P4MDOUT, pinNumber);
-			}
-			else
-			{
-				// Set the direction of the given pin in port 4 as input
-				SET_BIT(P4MDOUT, pinNumber);
-				SET_BIT(P4, pinNumber);
 			}
 			break;
 		
@@ -145,19 +131,6 @@ void DIO_write(unsigned char portName, unsigned char pinNumber, unsigned char ou
 				CLR_BIT(P3, pinNumber);
 			}
 			break;
-			
-		case '4':
-			if(outputvalue == 1)
-			{
-				// Set the value of the given pin in port 4 as High
-				SET_BIT(P4, pinNumber);
-			}
-			else
-			{
-				// Set the value of the given pin in port 4 as Low
-				CLR_BIT(P4, pinNumber);
-			}
-			break;
 
 		default:
 			break ;
@@ -190,11 +163,6 @@ unsigned char DIO_u8read(unsigned char portName, unsigned char pinNumber)
 			return_value = READ_BIT(P3, pinNumber);
 			break;
 		
-		case '4':
-			// Read the value from the given pin in port 4
-			return_value = READ_BIT(P4, pinNumber);
-			break;
-		
 		default: 
 			break;
 	}
@@ -224,11 +192,6 @@ void DIO_toggle(unsigned char portName, unsigned char pinNumber)
 		case '3':
 			// Toggle the value of the given pin in port 3
 			TOG_BIT(P3, pinNumber);
-			break;
-		
-		case '4':
-			// Toggle the value of the given pin in port 4
-			TOG_BIT(P4, pinNumber);
 			break;
 		
 		default:
@@ -291,21 +254,7 @@ void DIO_set_port_direction(unsigned char portName, unsigned char direction)
 				P3MDOUT = 0x00;
 				P3 = 0xFF;
 			}
-			break;
-			
-		case '4':
-			// set the direction of port 4
-			if (direction == 1)
-			{
-				P4MDOUT = 0xFF;
-			}
-			else
-			{
-				P4MDOUT = 0x00;
-				P4 = 0xFF;
-			}
-			break;
-			
+			break;		
 		
 		default:
 			break ;
@@ -332,10 +281,6 @@ void DIO_write_port(unsigned char portName, unsigned char portValue)
 		
 		case '3':
 			P3 = portValue; //Write the given value to the port 3
-			break;
-		
-		case '4':
-			P4 = portValue; //Write the given value to the port 4
 			break;
 		
 		default:
@@ -367,11 +312,6 @@ unsigned char DIO_read_port(unsigned char portName)
 		case '3':
 			// read the value of port 3 
 			return_val = P3;
-			break;
-		
-		case '4':
-			// read the value of port 4
-			return_val = P4;
 			break;
 		
 		default:
