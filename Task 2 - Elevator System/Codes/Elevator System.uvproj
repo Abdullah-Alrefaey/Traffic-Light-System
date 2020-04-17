@@ -233,7 +233,7 @@
               <RCB>
                 <Type>0</Type>
                 <StartAddress>0x0</StartAddress>
-                <Size>0x10000</Size>
+                <Size>0xffff</Size>
               </RCB>
               <RXB>
                 <Type>0</Type>
@@ -425,6 +425,26 @@
               <FileName>std_macros.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\lib\std_macros.h</FilePath>
+            </File>
+            <File>
+              <FileName>delay.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\lib\delay.c</FilePath>
+            </File>
+            <File>
+              <FileName>delay.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\lib\delay.h</FilePath>
+            </File>
+            <File>
+              <FileName>stepperMotor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\lib\stepperMotor.c</FilePath>
+            </File>
+            <File>
+              <FileName>stepperMotor.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\lib\stepperMotor.h</FilePath>
             </File>
           </Files>
         </Group>

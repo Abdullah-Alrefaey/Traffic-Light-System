@@ -1,53 +1,103 @@
 #include <REG51F380.H>
+#include "lib/delay.h"
 #include "lib/std_macros.h"
 #include "lib/DIO.h"
 #include "lib/LED.h"
 #include "lib/button.h"
 #include "lib/interrupt.h"
+#include "lib/stepperMotor.h"
 #include <stdio.h>
 
-void delay_ms(int millis);
-
-void main(void)
-{ 
+unsigned char persons = 0;			// Number of persons
+unsigned char i_warn;				// Warning counter in the loop
+unsigned char doorOpenStatus = 1;	// Initially the door is opened
+unsigned char currentFloor = 0;		// Current Floor of the Elevator
+unsigned char floor0Btn, floor1Btn, floor2Btn, floor3Btn, floor4Btn;
+int main()
+{	
+	// Initialization of stepper motor and external interrupts
+	stepper_vInit();
 	interrupt_vInit();
 	interrupt_vEnableExternal(0);
 	interrupt_vEnableExternal(1);
 	
-	// Initialize LED On P1.1 and P2.0
-	LED_vInit('1', 0);
+	// Initialize the warning LED of maximum persons
+	LED_vInit('3', 7);
+	LED_vTurnOff('3', 7);
 	
-	// Initialize Button On P3.4
+	// Initialize interrupts Buttons
 	button_vInit('3', 2);
 	button_vInit('3', 3);
 	
+	// Initialize Elevator Buttons
+	button_vInit('0', 0);
+	button_vInit('0', 1);
+	button_vInit('0', 2);
+	button_vInit('0', 3);
+	button_vInit('0', 4);
+	
 	while(1)
 	{	
-		LED_vTurnOff('1', 0);
-		delay_ms(50);
+		floor0Btn = button_u8read('0', 0);
+		floor1Btn = button_u8read('0', 1);
+		floor2Btn = button_u8read('0', 2);
+		floor3Btn = button_u8read('0', 3);
+		floor4Btn = button_u8read('0', 4);
+		
+		if(floor4Btn == 0)
+		{
+			// Wait 5 seconds to close the door
+			delay_ms(5000);
+			LED_vTurnOn('3', 7);
+			stepper_vUp();
+			delay_ms(10);
+			currentFloor = 4;
+		}
+		
+		if(floor0Btn == 0)
+		{
+			LED_vTurnOff('3', 7);
+			stepper_vDown();
+			delay_ms(10);
+			currentFloor = 0;
+		}
 	}
 }
 
-void EINT_BTN() interrupt 0
-{
-	LED_vTurnOn('1', 0);
-	delay_ms(1000);
-}
 
-void EINT_BTN2() interrupt 2
+void openTheDoor() interrupt 0
 {
-	LED_vTurnOn('1', 0);
-	delay_ms(3000);
-}
-
-
-void delay_ms(int millis)
-{
-	unsigned int i, j;
-	for(i = 0; i<millis; i++)
-	{
-		// Wait 1ms
-		for(j = 0; j<113; j++);
-	}
+	/*
+		INT0 ISR:
+		Prevent the door from closing 
+		Or to Force the door to be opened
+	*/
+	doorOpenStatus = 1;
 	
+	// Code here
+	
+	delay_ms(1);
+}
+
+void personIn() interrupt 2
+{
+	/*
+		INT1 ISR:
+		Add one person in each Buttn Click
+	*/
+	
+	if(persons < 4)
+	{
+		persons += 1;
+	}
+	else
+	{
+		// Warning Maximum Persons		
+		for(i_warn=0; i_warn<100; i_warn++)
+		{
+			LED_vToggle('3', 7);
+			delay_ms(10);
+		}
+		LED_vTurnOff('3', 7);
+	}
 }
