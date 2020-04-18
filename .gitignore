@@ -39,3 +39,12 @@
 /.idea/
 /.vscode/
 
+*.iml
+*.xml
+*.salo7
+*.uvopt
+*.cmake
+*.bin
+*.txt
+*.check_cache
+*.uvproj
