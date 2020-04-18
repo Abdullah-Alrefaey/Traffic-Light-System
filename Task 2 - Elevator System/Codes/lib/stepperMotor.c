@@ -1,4 +1,5 @@
-#include <REG51F380.H>
+
+#include <REGX51.H>
 #include "delay.h"
 #include "DIO.h"
 #include "interrupt.h"
@@ -45,6 +46,8 @@ void stepper_vUp()
 
 void stepper_vDown()
 {	
+
+
 	
 	
 	// 1100

@@ -1,4 +1,4 @@
-#include <REG51F380.H>
+#include <REGX51.H>
 #include "DIO.h"
 #include "std_macros.h"
 
