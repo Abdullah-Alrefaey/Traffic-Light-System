@@ -64,5 +64,6 @@ void DIO_write_port(unsigned char portName, unsigned char portValue);
 unsigned char DIO_read_port(unsigned char portName);
 void DIO_write_high_nibble(unsigned char portName, unsigned char value);
 void DIO_write_low_nibble(unsigned char portName, unsigned char value);
+void DIO_write_nibble(unsigned char portName, unsigned char value, unsigned char mode);
 #endif
 

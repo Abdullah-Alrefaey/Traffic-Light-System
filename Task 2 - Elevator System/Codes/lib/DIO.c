@@ -355,3 +355,15 @@ void DIO_write_low_nibble(unsigned char portName, unsigned char value)
 			break;
 	}
 }
+void DIO_write_nibble(unsigned char portName, unsigned char value, unsigned char mode)
+{
+	switch(mode)
+	{
+		case '0':
+			DIO_write_low_nibble(portName, value);
+			break;
+		case '1':
+			DIO_write_high_nibble(portName, value);
+			break;
+	}
+}
