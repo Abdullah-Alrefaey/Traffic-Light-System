@@ -14,7 +14,7 @@ void DIO_vsetPINDir(unsigned char portName, unsigned char pinNumber, unsigned ch
 	switch(portName)
 	{
 		case '0':
-			if(direction == 0)
+			if(direction == '0')
 			{
 				// Set the direction of the given pin in port 0 as output
 				CLR_BIT(P0, pinNumber);
@@ -27,7 +27,7 @@ void DIO_vsetPINDir(unsigned char portName, unsigned char pinNumber, unsigned ch
 			break;
 			
 		case '1':
-			if(direction == 0)
+			if(direction == '0')
 			{
 				// Set the direction of the given pin in port 1 as output
 				CLR_BIT(P1, pinNumber);
@@ -40,7 +40,7 @@ void DIO_vsetPINDir(unsigned char portName, unsigned char pinNumber, unsigned ch
 			break;
 			
 		case '2':
-			if(direction == 0)
+			if(direction == '0')
 			{
 				// Set the direction of the given pin in port 2 as output
 				CLR_BIT(P2, pinNumber);
@@ -53,7 +53,7 @@ void DIO_vsetPINDir(unsigned char portName, unsigned char pinNumber, unsigned ch
 			break;
 			
 		case '3':
-			if(direction == 0)
+			if(direction == '0')
 			{
 				// Set the direction of the given pin in port 3 as output
 				CLR_BIT(P3, pinNumber);

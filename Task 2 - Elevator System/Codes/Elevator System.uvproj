@@ -446,6 +446,16 @@
               <FileType>5</FileType>
               <FilePath>.\lib\stepperMotor.h</FilePath>
             </File>
+            <File>
+              <FileName>Seven_Segment.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\lib\Seven_Segment.c</FilePath>
+            </File>
+            <File>
+              <FileName>Seven_Segment.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\lib\Seven_Segment.h</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

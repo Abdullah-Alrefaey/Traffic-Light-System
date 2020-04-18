@@ -30,11 +30,14 @@ void openTheDoor()
     Prevent the door from closing
     Or to Force the door to be opened
 */
+	LED_vTurnOn('3', 7);
 doorOpenStatus = 1;
 
 // Code here
 
-delay_ms(5000);
+delay_ms(1000);
+	LED_vTurnOff('3', 7);
+	doorOpenStatus = 0;
 }
 void personIn() interrupt 2
 {
@@ -82,31 +85,46 @@ int main()
 	button_vInit('0', 2);
 	button_vInit('0', 3);
 	button_vInit('0', 4);
+	button_vInit('2', 0);
+	button_vInit('2', 1);
+	button_vInit('2', 2);
+	button_vInit('2', 3);
+	button_vInit('2', 4);
+	button_vInit('2', 5);
+	button_vInit('2', 6);
+	button_vInit('2', 7);
+	
+	SevenSegment_SetUp('1', 4);
 	
 	while(1)
 	{	
+		SevenSegment_Display('1', (char) currentFloor);
         if (Direction){
             // 7 Segment
-            if (Up[currentFloor]){
+            if (Up[currentFloor] != CheckButtonOut(currentFloor) || Floors[i] != CheckButtonIn(currentFloor)){
                 stopped = 1;
                 stepper_vDown();
                 delay_ms(20);
-                Up[currentFloor] = 0;
+                Up[currentFloor] = CheckButtonOut(currentFloor);
+                Floors[i] = CheckButtonIn(currentFloor);
                 openTheDoor();
-                delay_ms(5000);
                 // Close Door
             }
-            temp = CheckUp(Up, currentFloor);
-            if (temp != 404){
-                stopped = 0;
-                stepper_vUp();
-                delay_ms(20);
-                currentFloor++;
-                // 7 Segment
-            } else
-            {
-                Direction = 0;
-            }
+						if (currentFloor < 4)
+							{
+								temp = CheckUp(Up, currentFloor);
+								if (temp != 404){
+										stopped = 0;
+										stepper_vUp();
+										delay_ms(20);
+										currentFloor++;
+										SevenSegment_Display('1', (char)temp );
+										// 7 Segment
+								} else
+								{
+										Direction = 0;
+								}
+							}
             if (currentFloor == 4){
                 Direction = 0;
             }
@@ -118,22 +136,25 @@ int main()
                 delay_ms(20);
                 Down[currentFloor] = CheckButtonOut(currentFloor);
                 Floors[i] = CheckButtonIn(currentFloor);
-                // Open Door
-                delay_ms(5000);
-                // Close Door
+								openTheDoor();
             }
-            temp = CheckDown(Down, currentFloor);
-            if (temp != 404){
-                stopped = 0;
-                stepper_vDown();
-                delay_ms(20);
-                currentFloor--;
-                // 7 Segment
+						if (currentFloor > 0)
+							{
+								temp = CheckDown(Down, currentFloor);
+								if (temp != 404){
+										stopped = 0;
+										stepper_vDown();
+										delay_ms(20);
+										currentFloor--;
+										SevenSegment_Display('1', (char) currentFloor);
+										// 7 Segment
+								
             } else
             {
                 Direction = 1;
             }
-            if (currentFloor == 0){
+						}
+            if (currentFloor <= 0){
                 Direction = 1;
             }
         }
