@@ -19,7 +19,7 @@ unsigned int Down[5] = {1, 1, 1, 1, 1};
 unsigned int Floors[5] = {1, 1, 1, 1, 1};
 int  Direction = 1; //Up is True, Down is False
 int i, temp, temp2;
-int stopped = 0;
+int stopped = 1;
 int CheckUp(unsigned int floorDir[5], unsigned int floorNumber), CheckDown(unsigned int floorDir[5], unsigned int floorNumber);
 int CheckButtonIn(int CurrentFloor);
 int CheckButtonOut(int CurrentFloor);
@@ -120,6 +120,7 @@ int main()
 										// 7 Segment
 								} else
 								{
+										stopped = 1;
 										Direction = 0;
 								}
 							}
@@ -148,6 +149,7 @@ int main()
 								
             } else
             {
+							stopped = 1;
                 Direction = 1;
             }
 						}
