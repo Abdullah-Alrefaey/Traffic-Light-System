@@ -113,7 +113,7 @@ int main()
 						if (currentFloor < 4)
 							{
 								temp = CheckUp(Up, currentFloor);
-								if (temp != 404){
+								if (temp != 404 && temp != currentFloor){
 										stopped = 0;
 										stepper_vUp();
 										delay_ms(20);
@@ -141,7 +141,7 @@ int main()
 						if (currentFloor > 0)
 							{
 								temp = CheckDown(Down, currentFloor);
-								if (temp != 404){
+								if (temp != 404 && temp != currentFloor){
 										stopped = 0;
 										stepper_vDown();
 										delay_ms(20);
