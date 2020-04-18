@@ -103,8 +103,6 @@ int main()
             // 7 Segment
             if (Up[currentFloor] != CheckButtonOut(currentFloor) || Floors[i] != CheckButtonIn(currentFloor)){
                 stopped = 1;
-                stepper_vDown();
-                delay_ms(20);
                 Up[currentFloor] = CheckButtonOut(currentFloor);
                 Floors[i] = CheckButtonIn(currentFloor);
                 openTheDoor();
@@ -132,7 +130,6 @@ int main()
         if (!Direction) {
             if (Down[currentFloor] != CheckButtonOut(currentFloor) || Floors[i] != CheckButtonIn(currentFloor)){
                 stopped = 1;
-                stepper_vDown();
                 delay_ms(20);
                 Down[currentFloor] = CheckButtonOut(currentFloor);
                 Floors[i] = CheckButtonIn(currentFloor);
