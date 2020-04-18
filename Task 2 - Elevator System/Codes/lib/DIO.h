@@ -62,5 +62,7 @@ void DIO_write_port(unsigned char portName, unsigned char portValue);
 	Function Description : read the value of the port .
 */
 unsigned char DIO_read_port(unsigned char portName);
+void DIO_write_high_nibble(unsigned char portName, unsigned char value);
+void DIO_write_low_nibble(unsigned char portName, unsigned char value);
 #endif
 
