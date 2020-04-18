@@ -7,7 +7,7 @@ Function Returns     : void
 Function Arguments   : unsigned char portName
 Function Description : sets the direction of the given port as output 
 */
-void SevenSegment_SetUp(unsigned char portName);
+void SevenSegment_SetUp(unsigned char portName, unsigned char pinNumber);
 
 
 /*
