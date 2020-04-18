@@ -1,16 +1,16 @@
-
 #include <REGX51.H>
 #include "delay.h"
 #include "DIO.h"
 #include "interrupt.h"
+#include "stepperMotor.h"
 #include "std_macros.h"
 
 void stepper_vInit()
 {
-	DIO_vsetPINDir('1', 0, 1);
-	DIO_vsetPINDir('1', 1, 1);
-	DIO_vsetPINDir('1', 2, 1);
-	DIO_vsetPINDir('1', 3, 1);
+	DIO_vsetPINDir('1', 0, 0);
+	DIO_vsetPINDir('1', 1, 0);
+	DIO_vsetPINDir('1', 2, 0);
+	DIO_vsetPINDir('1', 3, 0);
 }
 
 void stepper_vUp()

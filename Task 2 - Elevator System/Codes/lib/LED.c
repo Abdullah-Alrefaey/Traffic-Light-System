@@ -1,10 +1,10 @@
-
+#include "LED.h"
 #include "DIO.h"
 
 void LED_vInit(unsigned char portName, unsigned char pinNumber)
 {
 	// Set the given pin in the given port as an output
-	DIO_vsetPINDir(portName, pinNumber, 1);
+	DIO_vsetPINDir(portName, pinNumber, 0);
 }
 
 void LED_vTurnOn(unsigned char portName, unsigned char pinNumber)

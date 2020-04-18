@@ -6,66 +6,61 @@
 void DIO_vsetPINDir(unsigned char portName, unsigned char pinNumber, unsigned char direction)
 {
 	// To Set PIN as Output
-	// Write 1 in PnMDOUT ->(Enable Push-Pull Mode)
+	// Write 0 in Pn
 	
 	// To Set PIN as Input
-	// Write 0 in PnMDOUT ->(Enable Open-Drain Mode)
-	// Write 1 in the specific bit in its PORT
+	// Write 1 in Pn
 	
 	switch(portName)
 	{
 		case '0':
-			if(direction == 1)
+			if(direction == 0)
 			{
 				// Set the direction of the given pin in port 0 as output
-				SET_BIT(P0MDOUT, pinNumber);
+				CLR_BIT(P0, pinNumber);
 			}
 			else
 			{
 				// Set the direction of the given pin in port 0 as input
-				CLR_BIT(P0MDOUT, pinNumber);
 				SET_BIT(P0, pinNumber);
 			}
 			break;
 			
 		case '1':
-			if(direction == 1)
+			if(direction == 0)
 			{
 				// Set the direction of the given pin in port 1 as output
-				SET_BIT(P1MDOUT, pinNumber);
+				CLR_BIT(P1, pinNumber);
 			}
 			else
 			{
 				// Set the direction of the given pin in port 1 as input
-				CLR_BIT(P1MDOUT, pinNumber);
 				SET_BIT(P1, pinNumber);
 			}
 			break;
 			
 		case '2':
-			if(direction == 1)
+			if(direction == 0)
 			{
 				// Set the direction of the given pin in port 2 as output
-				SET_BIT(P2MDOUT, pinNumber);
+				CLR_BIT(P2, pinNumber);
 			}
 			else
 			{
 				// Set the direction of the given pin in port 2 as input
-				CLR_BIT(P2MDOUT, pinNumber);
 				SET_BIT(P2, pinNumber);
 			}
 			break;
 			
 		case '3':
-			if(direction == 1)
+			if(direction == 0)
 			{
 				// Set the direction of the given pin in port 3 as output
-				SET_BIT(P3MDOUT, pinNumber);
+				CLR_BIT(P3, pinNumber);
 			}
 			else
 			{
 				// Set the direction of the given pin in port 3 as input
-				CLR_BIT(P3MDOUT, pinNumber);
 				SET_BIT(P3, pinNumber);
 			}
 			break;
@@ -206,52 +201,48 @@ void DIO_set_port_direction(unsigned char portName, unsigned char direction)
 	{
 		case '0':
 			// set the direction of port 0
-			if (direction == 1)
+			if (direction == 0)
 			{
-				P0MDOUT = 0xFF;
+				P0 = 0x00;
 			}
 			else
 			{
-				P0MDOUT = 0x00;
 				P0 = 0xFF;
 			}
 			break;
 			
 		case '1':
 			// set the direction of port 1
-			if (direction == 1)
+			if (direction == 0)
 			{
-				P1MDOUT = 0xFF;
+				P1 = 0x00;
 			}
 			else
 			{
-				P1MDOUT = 0x00;
 				P1 = 0xFF;
 			}
 			break;
 			
 		case '2':
 			// set the direction of port 2
-			if (direction == 1)
+			if (direction == 0)
 			{
-				P2MDOUT = 0xFF;
+				P2 = 0x00;
 			}
 			else
 			{
-				P2MDOUT = 0x00;
 				P2 = 0xFF;
 			}
 			break;
 			
 		case '3':
 			// set the direction of port 3
-			if (direction == 1)
+			if (direction == 0)
 			{
-				P3MDOUT = 0xFF;
+				P3 = 0x00;
 			}
 			else
 			{
-				P3MDOUT = 0x00;
 				P3 = 0xFF;
 			}
 			break;		
