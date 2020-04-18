@@ -6,6 +6,7 @@
 #include "lib/button.h"
 #include "lib/interrupt.h"
 #include "lib/stepperMotor.h"
+#include "lib/Seven_Segment.h"
 #include <stdio.h>
 
 unsigned char persons = 0;			// Number of persons
