@@ -30,13 +30,13 @@ void openTheDoor()
     Prevent the door from closing
     Or to Force the door to be opened
 */
-	LED_vTurnOn('3', 7);
+	LED_vTurnOn('3', 1);
 doorOpenStatus = 1;
 
 // Code here
 
 delay_ms(1000);
-	LED_vTurnOff('3', 7);
+	LED_vTurnOff('3', 1);
 	doorOpenStatus = 0;
 }
 void personIn() interrupt 2
@@ -75,6 +75,10 @@ int main()
 	LED_vInit('3', 7);
 	LED_vTurnOff('3', 7);
 	
+	// Initialize the  LED of Opened Door
+	LED_vInit('3', 1);
+	LED_vTurnOff('3', 1);
+	
 	// Initialize interrupts Buttons
 	button_vInit('3', 2);
 	button_vInit('3', 3);
@@ -108,7 +112,7 @@ int main()
                 openTheDoor();
                 // Close Door
             }
-						if (currentFloor < 4)
+						if (currentFloor <= 4)
 							{
 								temp = CheckUp(Up, currentFloor);
 								if (temp != 404 && temp != currentFloor){
@@ -124,6 +128,10 @@ int main()
 										Direction = 0;
 								}
 							}
+							if (temp == 404)
+							{
+								Direction = 0;
+							}
             if (currentFloor == 4){
                 Direction = 0;
             }
@@ -136,7 +144,7 @@ int main()
                 Floors[i] = CheckButtonIn(currentFloor);
 								openTheDoor();
             }
-						if (currentFloor > 0)
+						if (currentFloor >= 0)
 							{
 								temp = CheckDown(Down, currentFloor);
 								if (temp != 404 && temp != currentFloor){
@@ -153,6 +161,10 @@ int main()
                 Direction = 1;
             }
 						}
+									if (temp == 404)
+							{
+								Direction = 1;
+							}
             if (currentFloor <= 0){
                 Direction = 1;
             }
@@ -195,23 +207,23 @@ int CheckButtonOut(int CurrentFloor){
 		return floor1Btn;
 }
 int CheckUp(unsigned int floorDir[5], unsigned int floorNumber){
-    for (i = floorNumber; i < 5 ; ++i) {
+    for (i = floorNumber; i < 5 ; i++) {
         if (Floors[i] != CheckButtonIn(i)){
             return i;
         }
         if (floorDir[i] != CheckButtonOut(i)){
-            return i;
+            return i + 1;
         }
     }
     return 404;
 }
 int CheckDown(unsigned int floorDir[5], unsigned int floorNumber){
-    for (i = floorNumber; i >= 0 ; --i) {
+    for (i = floorNumber; i >= 0 ; i--) {
         if (Floors[i] != CheckButtonIn(i)){
             return i;
         }
         if (floorDir[i] != CheckButtonOut(i)){
-            return i;
+            return i + 1;
         }
     }
     return 404;
