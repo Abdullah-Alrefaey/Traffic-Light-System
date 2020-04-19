@@ -17,38 +17,38 @@ void stepper_vUp()
 {	
 	// 0011
 	DIO_write_low_nibble('1', 3);
-	delay_ms(100);
+	delay_ms(250);
 	
 	// 0110
 	DIO_write_low_nibble('1', 6);
-	delay_ms(100);
+	delay_ms(250);
 	
 	// 1100
 	DIO_write_low_nibble('1', 12);
-	delay_ms(100);
+	delay_ms(250);
 	
 	// 1001
 	DIO_write_low_nibble('1', 9);
-	delay_ms(100);
+	delay_ms(250);
 }
 
 void stepper_vDown()
 {	
 	// 1100
 	DIO_write_low_nibble('1', 12);
-	delay_ms(100);
+	delay_ms(250);
 	
 	// 0110
 	DIO_write_low_nibble('1', 6);
-	delay_ms(100);
+	delay_ms(250);
 	
 	// 0011
 	DIO_write_low_nibble('1', 3);
-	delay_ms(100);
+	delay_ms(250);
 	
 	// 1001
 	DIO_write_low_nibble('1', 9);
-	delay_ms(100);
+	delay_ms(250);
 }
 
 //void moveToFloor(unsigned char floorNumber)
