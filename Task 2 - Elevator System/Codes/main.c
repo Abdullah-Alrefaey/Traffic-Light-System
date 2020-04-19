@@ -23,6 +23,7 @@ int stopped = 1;
 int CheckUp(unsigned int floorDir[5], unsigned int floorNumber), CheckDown(unsigned int floorDir[5], unsigned int floorNumber);
 int CheckButtonIn(int CurrentFloor);
 int CheckButtonOut(int CurrentFloor);
+int toggle(int number);
 void openTheDoor()
 {
 /*
@@ -112,9 +113,10 @@ int main()
                 openTheDoor();
                 // Close Door
             }
-						if (currentFloor <= 4)
+						temp = CheckUp(Up, currentFloor);
+						if (currentFloor < 4)
 							{
-								temp = CheckUp(Up, currentFloor);
+								
 								if (temp != 404 && temp != currentFloor){
 										stopped = 0;
 										stepper_vUp();
@@ -140,7 +142,7 @@ int main()
             if (Down[currentFloor] != CheckButtonOut(currentFloor) || Floors[i] != CheckButtonIn(currentFloor)){
                 stopped = 1;
                 delay_ms(20);
-                Down[currentFloor] = CheckButtonOut(currentFloor);
+                Down[currentFloor] = toggle(Down[currentFloor]);
                 Floors[i] = CheckButtonIn(currentFloor);
 								openTheDoor();
             }
@@ -198,13 +200,20 @@ int CheckButtonIn(int CurrentFloor){
     floor0Btn = button_u8read('0', CurrentFloor);
     return floor0Btn;
 }
-int CheckButtonOut(int CurrentFloor){
-    if (!Direction && CurrentFloor != 0){
-        floor1Btn = button_u8read('2', CurrentFloor - 1);
-    } else if (Direction && CurrentFloor != 4){
-        floor1Btn = button_u8read('2', CurrentFloor + 4);
+int CheckButtonOut(int But){
+    if (!Direction && But != 0){
+       return button_u8read('2', But - 1);
+    } else if (Direction && But != 4){
+       return button_u8read('2', But + 4);
     }
-		return floor1Btn;
+		if (!Direction){
+			return Down[But];
+		}
+		else
+		{
+			return Up[But];
+		}
+		
 }
 int CheckUp(unsigned int floorDir[5], unsigned int floorNumber){
     for (i = floorNumber; i < 5 ; i++) {
@@ -212,7 +221,7 @@ int CheckUp(unsigned int floorDir[5], unsigned int floorNumber){
             return i;
         }
         if (floorDir[i] != CheckButtonOut(i)){
-            return i + 1;
+            return i;
         }
     }
     return 404;
@@ -223,8 +232,17 @@ int CheckDown(unsigned int floorDir[5], unsigned int floorNumber){
             return i;
         }
         if (floorDir[i] != CheckButtonOut(i)){
-            return i + 1;
+            return i;
+            
         }
     }
     return 404;
+}
+int toggle(int num){
+		if (num){
+			return 0;
+		}
+		else{
+			return 1;
+		}
 }
