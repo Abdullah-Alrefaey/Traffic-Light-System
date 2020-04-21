@@ -1,9 +1,9 @@
-A51 MACRO ASSEMBLER  TRAFFIC_LIGHT                                                        03/26/2020 14:13:10 PAGE     1
+A51 MACRO ASSEMBLER  TRAFFIC_LIGHT                                                        04/21/2020 14:03:47 PAGE     1
 
 
-MACRO ASSEMBLER A51 V8.02
+MACRO ASSEMBLER A51 V8.2.7.0
 OBJECT MODULE PLACED IN Traffic_Light.OBJ
-ASSEMBLER INVOKED BY: C:\Keil\C51\BIN\A51.EXE Traffic_Light.A51 SET(SMALL) DEBUG EP
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE Traffic_Light.A51 SET(SMALL) DEBUG EP
 
 LOC  OBJ            LINE     SOURCE
 
@@ -65,7 +65,7 @@ LOC  OBJ            LINE     SOURCE
 003C 93               53                     MOVC A, @A+DPTR
 003D F5B0             54                     MOV LEFT_SEGMENT, A
                       55     
-A51 MACRO ASSEMBLER  TRAFFIC_LIGHT                                                        03/26/2020 14:13:10 PAGE     2
+A51 MACRO ASSEMBLER  TRAFFIC_LIGHT                                                        04/21/2020 14:03:47 PAGE     2
 
 003F 80DF             56                     JMP MAIN
                       57     
@@ -107,7 +107,7 @@ LOC  OBJ            LINE     SOURCE
 011C 22               90                             RET
                       91     
                       92                             END
-A51 MACRO ASSEMBLER  TRAFFIC_LIGHT                                                        03/26/2020 14:13:10 PAGE     3
+A51 MACRO ASSEMBLER  TRAFFIC_LIGHT                                                        04/21/2020 14:03:47 PAGE     3
 
 SYMBOL TABLE LISTING
 ------ ----- -------
